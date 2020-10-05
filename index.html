@@ -332,7 +332,7 @@
           <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4" data-aos="fade-in">
             <div class="px-6">
               <!-- Image -->
-              <img alt="..." src="" class="shadow-lg rounded-full max-w-full mx-auto" style="max-width: 120px;" />
+              <img alt="..." src="" class="shadow-lg rounded-full max-w-full mx-auto" style="max-width: 120px;" id="user_image_1"/>
               <div class="pt-6 text-center">
                 <h5 class="text-xl font-bold">Ryan Thompson</h5>
                 <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
@@ -363,7 +363,7 @@
           <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4" data-aos="fade-in" data-aos-delay="400">
             <div class="px-6">
               <!-- Image -->
-              <img alt="..." src="" class="shadow-lg rounded-full max-w-full mx-auto" style="max-width: 120px;" />
+              <img alt="..." src="" class="shadow-lg rounded-full max-w-full mx-auto" style="max-width: 120px;" id="user_image_2"/>
               <div class="pt-6 text-center">
                 <h5 class="text-xl font-bold">Romina Hadid</h5>
                 <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
@@ -389,7 +389,7 @@
           <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4" data-aos="fade-in" data-aos-delay="600">
             <div class="px-6">
               <!-- Image -->
-              <img alt="..." src="" class="shadow-lg rounded-full max-w-full mx-auto" style="max-width: 120px;" />
+              <img alt="..." src="" class="shadow-lg rounded-full max-w-full mx-auto" style="max-width: 120px;" id="user_image_3"/>
               <div class="pt-6 text-center">
                 <h5 class="text-xl font-bold">Alexa Smith</h5>
                 <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
@@ -420,7 +420,7 @@
           <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4" data-aos="fade-in" data-aos-delay="800">
             <div class="px-6">
               <!-- Image -->
-              <img alt="..." src="" class="shadow-lg rounded-full max-w-full mx-auto" style="max-width: 120px;" />
+              <img alt="..." src="" class="shadow-lg rounded-full max-w-full mx-auto" style="max-width: 120px;" id="user_image_4"/>
               <div class="pt-6 text-center">
                 <h5 class="text-xl font-bold">Jenna Kardi</h5>
                 <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
@@ -694,10 +694,41 @@
 </script>
 <!-- Base js file for our page -->
 <script>
+  const maleUserFetchApi = 'https://randomuser.me/api/?gender=male&results=2';
+  const femaleUserFetchApi = 'https://randomuser.me/api/?gender=female&results=2';
+  const user1 = document.getElementById('user_image_1');
+  const user2 = document.getElementById('user_image_2');
+  const user3 = document.getElementById('user_image_3');
+  const user4 = document.getElementById('user_image_4');
+
   function toggleNavbar(collapseID) {
     document.getElementById(collapseID).classList.toggle("hidden");
     document.getElementById(collapseID).classList.toggle("block");
   }
+
+  function setUserImage(id, source) {
+    id.setAttribute('src', source.picture['medium']);
+  }
+
+  async function getUsers() {
+      try{
+        const maleResponse = await fetch(maleUserFetchApi);
+        const maleData = await maleResponse.json();
+        const maleResultArr = maleData.results;
+
+        const femaleResponse = await fetch(femaleUserFetchApi);
+        const femaleData = await femaleResponse.json();
+        const femaleResultArr = femaleData.results;
+
+        setUserImage(user1, maleResultArr[0]);
+        setUserImage(user2, femaleResultArr[0]);
+        setUserImage(user3, femaleResultArr[1]);
+        setUserImage(user4, maleResultArr[1]);
+      } catch(e) {
+        console.log(e);
+      }
+    }
+    getUsers();
 </script>
 
 </html>
